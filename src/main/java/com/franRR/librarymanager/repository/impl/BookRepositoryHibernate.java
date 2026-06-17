@@ -2,6 +2,7 @@ package com.franRR.librarymanager.repository.impl;
 
 import com.franRR.librarymanager.HibernateUtil;
 import com.franRR.librarymanager.model.Book;
+import com.franRR.librarymanager.repository.BookRepository;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import java.util.List;

@@ -2,6 +2,8 @@ package com.franRR.librarymanager.model;
 
 import jakarta.persistence.*;
 
+import java.time.LocalDate;
+
 @Entity
 @Table(name = "books", schema = "library_manager_db")
 public class Book {
@@ -23,10 +25,23 @@ public class Book {
     private String publisher;
 
     @Column(name = "publication_year")
-    private Integer publicationYear;
+    private java.time.LocalDate publicationDate;
 
     @Column(name = "available_quantity", nullable = false)
     private Integer availableQuantity;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "category_id")
+    private Category category;
+
+
+    public Category getCategory() {
+        return category;
+    }
+
+    public void setCategory(Category category) {
+        this.category = category;
+    }
 
     public Long getId() {
         return id;
@@ -68,12 +83,12 @@ public class Book {
         this.publisher = publisher;
     }
 
-    public Integer getPublicationYear() {
-        return publicationYear;
+    public java.time.LocalDate getPublicationDate() {
+        return publicationDate;
     }
 
-    public void setPublicationYear(Integer publicationYear) {
-        this.publicationYear = publicationYear;
+    public void setPublicationDate(java.time.LocalDate publicationDate) {
+        this.publicationDate = publicationDate;
     }
 
     public Integer getAvailableQuantity() {
@@ -85,13 +100,14 @@ public class Book {
     }
 
 
-    public Book( String isbn, String title, String author, Integer publicationYear, Integer availableQuantity) {
+    public Book(String isbn, String title, String author, LocalDate publicationYear, Integer availableQuantity, Category category) {
 
         this.isbn = isbn;
         this.title = title;
         this.author = author;
-        this.publicationYear = publicationYear;
+        this.publicationDate = publicationYear;
         this.availableQuantity = availableQuantity;
+        this.category = category;
     }
 
     public Book() {

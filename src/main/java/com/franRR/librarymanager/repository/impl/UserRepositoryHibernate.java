@@ -2,12 +2,13 @@ package com.franRR.librarymanager.repository.impl;
 
 import com.franRR.librarymanager.HibernateUtil;
 import com.franRR.librarymanager.model.User;
+import com.franRR.librarymanager.repository.UserRepository;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import java.util.List;
 import java.util.Optional;
 
-public class UserRepositoryHibernate implements UserRepository{
+public class UserRepositoryHibernate implements UserRepository {
 
     @Override
     public void save(User user) {

@@ -2,11 +2,12 @@ package com.franRR.librarymanager.repository.impl;
 
 import com.franRR.librarymanager.HibernateUtil;
 import com.franRR.librarymanager.model.Loan;
+import com.franRR.librarymanager.repository.LoanRepository;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import java.util.List;
 
-public class LoanRepositoryHibernate implements LoanRepository{
+public class LoanRepositoryHibernate implements LoanRepository {
 
     @Override
     public void save(Loan loan) {

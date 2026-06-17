@@ -1,4 +1,4 @@
-package com.franRR.librarymanager.repository.impl;
+package com.franRR.librarymanager.repository;
 
 import com.franRR.librarymanager.model.User;
 

@@ -10,7 +10,7 @@ public class Category {
     @Column(name = "id", nullable = false)
     private Integer id;
 
-    @Column(name = "name", nullable = false, length = 50)
+    @Column(name = "name",unique = true, nullable = false, length = 50)
     private String name;
 
     public Integer getId() {
@@ -39,10 +39,7 @@ public class Category {
 
     @Override
     public String toString() {
-        return "Category{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                '}';
+        return this.name;
     }
 
 
