@@ -16,6 +16,10 @@ public class Loan {
     @JoinColumn(name = "book_id", nullable = false)
     private Book book;
 
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "user_id", nullable = false)
+    private User user;
+
     @Column(name = "loan_date", nullable = false)
     private LocalDate loanDate;
 
@@ -41,6 +45,14 @@ public class Loan {
         this.book = book;
     }
 
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
     public LocalDate getLoanDate() {
         return loanDate;
     }
@@ -63,6 +75,19 @@ public class Loan {
 
     public void setReturnDate(LocalDate returnDate) {
         this.returnDate = returnDate;
+    }
+
+    public String getStatus() {
+        if (this.returnDate != null) {
+            return "Devuelto";
+        }
+
+        // Si la fecha límite (dueDate) es anterior al día de hoy, está vencido
+        if (this.dueDate != null && this.dueDate.isBefore(java.time.LocalDate.now())) {
+            return "Vencido";
+        }
+
+        return "Activo";
     }
 
     public Loan( Book book, LocalDate loanDate, LocalDate dueDate) {

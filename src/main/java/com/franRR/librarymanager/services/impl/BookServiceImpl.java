@@ -20,6 +20,25 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
+    public void delete(Book book){
+        try(Session session = sessionFactory.openSession()){
+            session.beginTransaction();
+            session.delete(book);
+            session.getTransaction().commit();
+        }
+    }
+
+    @Override
+    public void update(Book book){
+        try(Session session = sessionFactory.openSession()){
+            session.beginTransaction();
+            session.update(book);
+            session.getTransaction().commit();
+
+        }
+    }
+
+    @Override
     public List<Book> findAll() {
         try(Session session = sessionFactory.openSession()){
             return session.createQuery("FROM Book", Book.class).list();

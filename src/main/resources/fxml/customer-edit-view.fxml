@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.URL?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="414.0" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.franRR.librarymanager.controller.CustomerEditViewController">
+   <stylesheets>
+      <URL value="@/css/book-edit-view.css" />
+   </stylesheets>
+   <children>
+      <VBox alignment="CENTER" layoutX="161.0" layoutY="58.0" prefHeight="400.0" prefWidth="600.0" spacing="15.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <padding>
+            <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+         </padding>
+         <children>
+            <Label text="Modificar información del cliente">
+               <font>
+                  <Font name="System Bold" size="20.0" />
+               </font>
+            </Label>
+            <GridPane alignment="CENTER">
+               <columnConstraints>
+                  <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="30.0" />
+                  <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+               </columnConstraints>
+               <rowConstraints>
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+               </rowConstraints>
+               <children>
+                  <Label text="DNI">
+                     <GridPane.margin>
+                        <Insets right="75.0" />
+                     </GridPane.margin></Label>
+                  <Label text="Nombre" GridPane.rowIndex="1">
+                     <GridPane.margin>
+                        <Insets left="-54.0" />
+                     </GridPane.margin></Label>
+                  <Label text="Primer Apellido" GridPane.rowIndex="2">
+                     <GridPane.margin>
+                        <Insets left="-15.0" />
+                     </GridPane.margin></Label>
+                  <Label text="Segundo Apellido" GridPane.rowIndex="3">
+                     <GridPane.margin>
+                        <Insets left="-2.0" />
+                     </GridPane.margin></Label>
+                  <Label text="Correo electrónico" GridPane.rowIndex="4">
+                     <GridPane.margin>
+                        <Insets left="1.0" />
+                     </GridPane.margin></Label>
+                  <Label text="Número de teléfono" GridPane.rowIndex="5">
+                     <GridPane.margin>
+                        <Insets left="9.0" />
+                     </GridPane.margin></Label>
+                  <TextField fx:id="dniField" maxWidth="180.0" prefWidth="180.0" GridPane.columnIndex="1" />
+                  <TextField fx:id="firstNameField" maxWidth="180.0" prefWidth="180.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                  <TextField fx:id="nameField" maxWidth="180.0" prefWidth="180.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                  <TextField fx:id="phoneField" maxWidth="180.0" prefWidth="180.0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                  <TextField fx:id="lastNameField" maxWidth="180.0" prefWidth="180.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                  <TextField fx:id="emailField" maxWidth="180.0" prefWidth="180.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+               </children>
+               <padding>
+                  <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+               </padding>
+            </GridPane>
+            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="12.0">
+               <children>
+                  <Button fx:id="saveChangesBtn" mnemonicParsing="false" onAction="#saveCustomer" text="Guardar cambios" />
+                  <Button fx:id="eraseBtn" mnemonicParsing="false" onAction="#eraseCustomer" text="Eliminar" />
+               </children>
+               <padding>
+                  <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+               </padding>
+            </HBox>
+         </children>
+      </VBox>
+   </children>
+</AnchorPane>

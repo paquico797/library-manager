@@ -21,6 +21,17 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
+    public void delete(Category category){
+
+        try(Session session = sessionFactory.openSession()){
+            session.beginTransaction();
+            session.delete(category);
+            session.getTransaction().commit();
+        }
+
+    }
+
+    @Override
     public List<Category> findAll() {
         try(Session session = sessionFactory.openSession()){
             return session.createQuery("FROM Category", Category.class).list();

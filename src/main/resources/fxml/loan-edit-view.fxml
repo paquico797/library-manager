@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.URL?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="406.0" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.franRR.librarymanager.controller.LoanEditViewController">
+   <stylesheets>
+      <URL value="@/css/book-edit-view.css" />
+   </stylesheets>
+   <children>
+      <VBox alignment="CENTER" layoutX="161.0" layoutY="58.0" prefHeight="400.0" prefWidth="600.0" spacing="15.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <padding>
+            <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+         </padding>
+         <children>
+            <Label text="Control de préstamo activo">
+               <font>
+                  <Font name="System Bold" size="20.0" />
+               </font>
+            </Label>
+            <GridPane alignment="CENTER" hgap="10.0" vgap="10.0">
+               <columnConstraints>
+                  <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+               </columnConstraints>
+               <rowConstraints>
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+               </rowConstraints>
+               <children>
+                  <Label text="Libro prestado:" />
+                  <Label text="Asignado a:" GridPane.rowIndex="1">
+                     <GridPane.margin>
+                        <Insets right="18.0" />
+                     </GridPane.margin></Label>
+                  <Label text="Fecha de salida" GridPane.rowIndex="2" />
+                  <Label text="Fecha límite" GridPane.rowIndex="3">
+                     <GridPane.margin>
+                        <Insets right="16.0" />
+                     </GridPane.margin></Label>
+                  <Label text="Estado actual:" GridPane.rowIndex="4">
+                     <GridPane.margin>
+                        <Insets right="7.0" />
+                     </GridPane.margin></Label>
+                  <TextField fx:id="bookNameField" disable="true" maxWidth="180.0" prefWidth="180.0" GridPane.columnIndex="1" />
+                  <TextField fx:id="customerNameField" disable="true" maxWidth="180.0" prefWidth="180.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                  <DatePicker fx:id="loanSrartDate" maxWidth="180.0" prefWidth="180.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                  <DatePicker fx:id="loanLimitDate" maxWidth="180.0" prefWidth="180.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                  <Label fx:id="actualStateLabel" maxWidth="180.0" prefWidth="180.0" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+               </children>
+            </GridPane>
+            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="12.0">
+               <children>
+                  <Button fx:id="saveChangesBtn" mnemonicParsing="false" onAction="#saveChanges" text="Guardar cambios" />
+                  <Button fx:id="eraseBtn" mnemonicParsing="false" onAction="#erase" text="Eliminar" />
+               </children>
+               <padding>
+                  <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+               </padding>
+            </HBox>
+         </children>
+      </VBox>
+   </children>
+</AnchorPane>

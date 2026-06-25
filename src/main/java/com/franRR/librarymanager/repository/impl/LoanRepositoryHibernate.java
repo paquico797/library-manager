@@ -38,15 +38,26 @@ public class LoanRepositoryHibernate implements LoanRepository {
     @Override
     public List<Loan> findActiveLoans() {
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
-            // Si returnDate IS NULL significa que el lector no ha devuelto el libro todavía
-            return session.createQuery("FROM Loan WHERE returnDate IS NULL", Loan.class).list();
+            // Añadido JOIN FETCH de book y user conjuntamente
+            return session.createQuery("FROM Loan l JOIN FETCH l.book JOIN FETCH l.user WHERE l.returnDate IS NULL", Loan.class).list();
         }
     }
 
     @Override
-    public List<Loan> findLoansByUserId(Long userId) {
+    public List<Loan> findLoansByUserId(Long id) {
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
-            return session.createQuery("FROM Loan WHERE user.id = :userId", Loan.class)
+            // El JOIN FETCH l.book es obligatorio aquí para evitar que el libro venga vacío (proxy)
+            return session.createQuery(
+                            "FROM Loan l JOIN FETCH l.book WHERE l.user.id = :userId", Loan.class)
+                    .setParameter("userId", id)
+                    .list();
+        }
+    }
+
+    public List<Loan> getLoansByUserId(Long userId) {
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+            return session.createQuery(
+                            "FROM Loan l JOIN FETCH l.book WHERE l.user.id = :userId", Loan.class)
                     .setParameter("userId", userId)
                     .list();
         }
@@ -55,7 +66,8 @@ public class LoanRepositoryHibernate implements LoanRepository {
     @Override
     public List<Loan> findAll() {
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
-            return session.createQuery("FROM Loan", Loan.class).list();
+            // Añadimos JOIN FETCH l.book aquí también por seguridad
+            return session.createQuery("FROM Loan l JOIN FETCH l.book", Loan.class).list();
         }
     }
 }

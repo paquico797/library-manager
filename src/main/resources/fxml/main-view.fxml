@@ -5,6 +5,7 @@
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.control.Tab?>
@@ -16,130 +17,363 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
-
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.franRR.librarymanager.controller.MainController">
+<AnchorPane prefHeight="768.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.franRR.librarymanager.controller.MainController">
    <children>
-      <VBox layoutX="250.0" layoutY="100.0" prefHeight="768.0" prefWidth="1024.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-         <children>
-            <TabPane prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE" VBox.vgrow="ALWAYS">
-              <tabs>
-                <Tab text="Libros y Categorías">
-                  <content>
-                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                           <children>
-                              <SplitPane dividerPositions="0.7" layoutX="134.0" layoutY="80.0" prefHeight="371.2" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                                <items>
-                                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
-                                       <children>
-                                          <VBox layoutX="-8.0" layoutY="-10.0" spacing="10.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                                             <padding>
-                                                <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
-                                             </padding>
-                                             <children>
-                                                <TextField fx:id="searchBookField" promptText="Buscar libro" />
-                                                <TableView fx:id="bookTableView" prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
-                                                  <columns>
-                                                    <TableColumn fx:id="titleColumn" prefWidth="75.0" text="Título" />
-                                                    <TableColumn fx:id="authorColumn" prefWidth="75.0" text="Autor" />
-                                                      <TableColumn fx:id="categoryColumn" prefWidth="75.0" text="Categoría" />
-                                                      <TableColumn fx:id="availableQuantityColumn" prefWidth="75.0" text="Stock disponible" />
-                                                      <TableColumn fx:id="isbnColumn" prefWidth="75.0" text="ISBN" />
-                                                      <TableColumn fx:id="yearColumn" prefWidth="75.0" text="Año de Publicación" />
-                                                  </columns>
-                                                   <columnResizePolicy>
-                                                      <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
-                                                   </columnResizePolicy>
-                                                </TableView>
-                                             </children>
-                                          </VBox>
-                                       </children>
-                                    </AnchorPane>
-                                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="370.0" prefWidth="378.0">
-                                       <children>
-                                          <VBox layoutX="-4.0" layoutY="85.0" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="370.0" spacing="12.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                                             <padding>
-                                                <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
-                                             </padding>
-                                             <children>
-                                                <Label text="Añadir / Editar libro">
-                                                   <font>
-                                                      <Font name="System Bold" size="12.0" />
-                                                   </font>
-                                                </Label>
-                                                <TextField fx:id="isbnField" promptText="ISBN" />
-                                                <TextField fx:id="titleField" promptText="Título del libro" />
-                                                <TextField fx:id="authorField" promptText="Autor" />
-                                                <ComboBox fx:id="categoryComboBox" prefWidth="200.0" promptText="Categoría" />
-                                                <TextField fx:id="stockField" promptText="Cantidad en Stock" />
-                                                <DatePicker fx:id="yearField" editable="true" />
-                                                <Button fx:id="saveBookButton" mnemonicParsing="false" onAction="#handleSaveBook" text="Añadir" />
-                                                <Separator prefWidth="200.0" />
-                                                <Label text="Nueva categoría">
-                                                   <font>
-                                                      <Font name="System Bold" size="12.0" />
-                                                   </font>
-                                                </Label>
-                                                <HBox prefHeight="100.0" prefWidth="200.0" spacing="10.0">
-                                                   <children>
-                                                      <TextField fx:id="newCategoryField" promptText="NUEVA CATEGORÍA" HBox.hgrow="ALWAYS" />
-                                                      <Button fx:id="addCategoryButton" mnemonicParsing="false" onAction="#handleAddCategory" text="+" />
-                                                   </children>
-                                                   <VBox.margin>
-                                                      <Insets />
-                                                   </VBox.margin>
-                                                   <padding>
-                                                      <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
-                                                   </padding>
-                                                </HBox>
-                                             </children>
-                                          </VBox>
-                                       </children>
-                                    </AnchorPane>
-                                </items>
-                              </SplitPane>
-                           </children>
-                        </AnchorPane>
-                  </content>
-                </Tab>
-                <Tab text="Préstamos Activos">
-                  <content>
-                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                           <children>
-                              <VBox layoutX="250.0" layoutY="73.0" prefHeight="371.2" prefWidth="600.0" spacing="12.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <TabPane prefHeight="778.0" prefWidth="734.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <tabs>
+            <Tab text="Libros y Categorías">
+               <content>
+                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <SplitPane dividerPositions="0.7" layoutX="134.0" layoutY="80.0" prefHeight="371.2" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="70.0">
+                           <items>
+                              <VBox spacing="10.0">
                                  <padding>
                                     <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
                                  </padding>
                                  <children>
-                                    <HBox prefHeight="100.0" prefWidth="200.0" spacing="10.0">
-                                       <children>
-                                          <TextField fx:id="searchLoanField" promptText="Buscar libro por Título o ISBN" HBox.hgrow="ALWAYS" />
-                                          <Button fx:id="registerLoanButton" mnemonicParsing="false" text="Registrar nuevo préstamo" />
-                                       </children>
-                                       <padding>
-                                          <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
-                                       </padding>
-                                    </HBox>
-                                    <TableView fx:id="loanTbleView" prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
-                                      <columns>
-                                        <TableColumn fx:id="loanTitleColumn" prefWidth="75.0" text="Título" />
-                                        <TableColumn fx:id="loanDateColumn" prefWidth="75.0" text="Fecha de Préstamo" />
-                                          <TableColumn fx:id="dueDateColumn" prefWidth="75.0" text="Fecha de Vencimiento" />
-                                          <TableColumn fx:id="actionColumn" prefWidth="75.0" text="Acción" />
-                                      </columns>
+                                    <TextField fx:id="searchBookField" promptText="Buscar libro" />
+                                    <TableView fx:id="bookTableView" prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
+                                       <columns>
+                                          <TableColumn fx:id="titleColumn" prefWidth="75.0" text="Título" />
+                                          <TableColumn fx:id="authorColumn" prefWidth="75.0" text="Autor" />
+                                          <TableColumn fx:id="categoryColumn" prefWidth="75.0" text="Categoría" />
+                                          <TableColumn fx:id="availableQuantityColumn" prefWidth="75.0" text="Stock disponible" />
+                                          <TableColumn fx:id="isbnColumn" prefWidth="75.0" text="ISBN" />
+                                          <TableColumn fx:id="yearColumn" prefWidth="75.0" text="Año de Publicación" />
+                                       </columns>
                                        <columnResizePolicy>
                                           <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                                        </columnResizePolicy>
                                     </TableView>
                                  </children>
                               </VBox>
-                           </children>
-                        </AnchorPane>
-                  </content>
-                </Tab>
-              </tabs>
-            </TabPane>
-         </children>
-      </VBox>
+                              <VBox maxWidth="-Infinity" minWidth="-Infinity" prefWidth="300.0" spacing="12.0">
+                                 <padding>
+                                    <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+                                 </padding>
+                                 <children>
+                                    <Label text="AÑADIR LIBRO">
+                                       <font>
+                                          <Font name="System Bold" size="12.0" />
+                                       </font>
+                                    </Label>
+                                    <TextField fx:id="isbnField" promptText="ISBN" />
+                                    <TextField fx:id="titleField" promptText="Título del libro" />
+                                    <TextField fx:id="authorField" promptText="Autor" />
+                                    <ComboBox fx:id="categoryComboBox" prefHeight="33.0" prefWidth="274.0" promptText="Categoría" />
+                                    <TextField fx:id="stockField" promptText="Cantidad en Stock" />
+                                    <DatePicker fx:id="yearField" editable="true" prefHeight="26.0" prefWidth="274.0" />
+                                    <HBox prefHeight="100.0" prefWidth="200.0" spacing="10.0">
+                                       <children>
+                                          <Button fx:id="saveBookButton" mnemonicParsing="false" onAction="#handleSaveBook" prefHeight="26.0" prefWidth="55.0" text="Añadir" />
+                                          <Button fx:id="clearButton" mnemonicParsing="false" onAction="#clearFields" prefHeight="26.0" prefWidth="56.0" text="Limpiar" />
+                                       </children>
+                                       <padding>
+                                          <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                       </padding>
+                                    </HBox>
+                                    <Separator prefWidth="200.0" />
+                                    <VBox prefHeight="200.0" prefWidth="100.0" spacing="12.0" VBox.vgrow="ALWAYS">
+                                       <children>
+                                          <Label text="CATEGORÍAS">
+                                             <font>
+                                                <Font name="System Bold" size="12.0" />
+                                             </font>
+                                          </Label>
+                                          <ListView fx:id="categoryListView" prefHeight="200.0" prefWidth="200.0" />
+                                          <VBox prefHeight="200.0" prefWidth="100.0" spacing="10.0">
+                                             <children>
+                                                <TextField fx:id="newCategoryField" promptText="NUEVA CATEGORÍA" />
+                                                <Button fx:id="addCategoryButton" mnemonicParsing="false" onAction="#handleAddCategory" prefHeight="26.0" prefWidth="233.0" text="Añadir categoría" />
+                                             </children>
+                                             <padding>
+                                                <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                             </padding>
+                                          </VBox>
+                                       </children>
+                                       <VBox.margin>
+                                          <Insets />
+                                       </VBox.margin>
+                                       <padding>
+                                          <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+                                       </padding>
+                                    </VBox>
+                                 </children>
+                              </VBox>
+                           </items>
+                        </SplitPane>
+                        <Label layoutX="14.0" layoutY="14.0" text="Gestión de Libros y Categorías">
+                           <font>
+                              <Font name="System Bold" size="20.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </AnchorPane>
+               </content>
+            </Tab>
+            <Tab text="Préstamos Activos">
+               <content>
+                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <SplitPane dividerPositions="0.7" prefHeight="739.2" prefWidth="724.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="70.0">
+                           <items>
+                              <VBox prefHeight="371.2" prefWidth="600.0" spacing="12.0">
+                                 <padding>
+                                    <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+                                 </padding>
+                                 <children>
+                                    <TableView fx:id="loanTableView" prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
+                                       <columns>
+                                          <TableColumn fx:id="loanTitleColumn" prefWidth="75.0" text="Título" />
+                                          <TableColumn fx:id="loanDateColumn" prefWidth="75.0" text="Fecha de Préstamo" />
+                                          <TableColumn fx:id="dueDateColumn" prefWidth="75.0" text="Fecha de Vencimiento" />
+                                          <TableColumn fx:id="stateColumn" prefWidth="75.0" text="Estado" />
+                                          <TableColumn fx:id="actionColumn" prefWidth="75.0" text="Acción" />
+                                       </columns>
+                                       <columnResizePolicy>
+                                          <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                                       </columnResizePolicy>
+                                    </TableView>
+                                 </children>
+                              </VBox>
+                              <VBox maxWidth="-Infinity" prefHeight="200.0" prefWidth="300.0" spacing="12.0">
+                                 <padding>
+                                    <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+                                 </padding>
+                                 <children>
+                                    <VBox prefHeight="200.0" prefWidth="100.0" spacing="12.0" VBox.vgrow="ALWAYS">
+                                       <children>
+                                          <Label text="Añadir préstamos">
+                                             <font>
+                                                <Font name="System Bold" size="20.0" />
+                                             </font>
+                                          </Label>
+                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Lista de Libros disponibles: " />
+                                          <TextField fx:id="searchBookLoanField" promptText="Buscar libro por Título o ISBN">
+                                             <VBox.margin>
+                                                <Insets />
+                                             </VBox.margin>
+                                          </TextField>
+                                          <TableView fx:id="loanBookTableView" prefHeight="200.0" prefWidth="200.0">
+                                            <columns>
+                                              <TableColumn fx:id="loanBookTitleColumn" prefWidth="75.0" text="Título" />
+                                              <TableColumn fx:id="loanIsbnBookColumn" prefWidth="75.0" text="ISBN" />
+                                            </columns>
+                                             <columnResizePolicy>
+                                                <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                                             </columnResizePolicy>
+                                          </TableView>
+                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Lista de clientes:" />
+                                          <TextField fx:id="searchCustomerLoanField" promptText="Buscar Cliente por Nombre o DNI" />
+                                          <TableView fx:id="loanCustomerTable" prefHeight="200.0" prefWidth="200.0">
+                                            <columns>
+                                              <TableColumn fx:id="dniLoanColumn" prefWidth="75.0" text="DNI" />
+                                              <TableColumn fx:id="nameLoanColumn" prefWidth="75.0" text="Nombre" />
+                                            </columns>
+                                             <columnResizePolicy>
+                                                <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                                             </columnResizePolicy>
+                                          </TableView>
+                                          <Button fx:id="registerLoanButton" mnemonicParsing="false" onAction="#registerNewLoan" text="Registrar nuevo préstamo" />
+                                       </children>
+                                       <VBox.margin>
+                                          <Insets />
+                                       </VBox.margin>
+                                       <padding>
+                                          <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+                                       </padding>
+                                    </VBox>
+                                 </children>
+                              </VBox>
+                           </items>
+                        </SplitPane>
+                        <Label layoutX="14.0" layoutY="14.0" text="Gestión de Préstamos">
+                           <font>
+                              <Font name="System Bold" size="20.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </AnchorPane>
+               </content>
+            </Tab>
+            <Tab text="Clientes">
+               <content>
+                  <AnchorPane prefHeight="400.0" prefWidth="600.0">
+                     <children>
+                        <SplitPane dividerPositions="0.5" layoutX="200.0" layoutY="90.0" prefHeight="400.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="70.0">
+                           <items>
+                              <VBox prefHeight="200.0" prefWidth="100.0" spacing="12.0">
+                                 <padding>
+                                    <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+                                 </padding>
+                                 <children>
+                                    <Label text="Lista de clientes">
+                                       <font>
+                                          <Font name="System Bold" size="21.0" />
+                                       </font>
+                                    </Label>
+                                    <TableView fx:id="customerTable" prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
+                                       <columns>
+                                          <TableColumn fx:id="dniColumn" prefWidth="75.0" text="DNI" />
+                                          <TableColumn fx:id="customerNameColumn" prefWidth="75.0" text="Nombre" />
+                                          <TableColumn fx:id="firstNameColumn" prefWidth="75.0" text="Primer Apellido" />
+                                          <TableColumn fx:id="secondNameColumn" prefWidth="75.0" text="Segundo Apellido" />
+                                          <TableColumn fx:id="emailColumn" prefWidth="75.0" text="Correo" />
+                                          <TableColumn fx:id="phoneColumn" prefWidth="75.0" text="Teléfono" />
+                                          <TableColumn fx:id="accionesColumn" prefWidth="75.0" text="Acción" />
+                                       </columns>
+                                       <columnResizePolicy>
+                                          <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                                       </columnResizePolicy>
+                                    </TableView>
+                                    <Label text="Préstamos del cliente">
+                                       <font>
+                                          <Font name="System Bold" size="15.0" />
+                                       </font>
+                                    </Label>
+                                    <TableView fx:id="loanTbleView1" prefHeight="200.0" prefWidth="200.0">
+                                       <columns>
+                                          <TableColumn fx:id="loanTitleColumn1" prefWidth="75.0" text="Título" />
+                                          <TableColumn fx:id="loanDateColumn1" prefWidth="75.0" text="Fecha de Préstamo" />
+                                          <TableColumn fx:id="dueDateColumn1" prefWidth="75.0" text="Fecha de Vencimiento" />
+                                       </columns>
+                                       <columnResizePolicy>
+                                          <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                                       </columnResizePolicy>
+                                    </TableView>
+                                 </children>
+                              </VBox>
+                              <VBox maxWidth="-Infinity" prefHeight="200.0" prefWidth="300.0" spacing="12.0">
+                                 <padding>
+                                    <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+                                 </padding>
+                                 <children>
+                                    <Label text="GESTIÓN DE CLIENTES">
+                                       <font>
+                                          <Font name="System Bold" size="14.0" />
+                                       </font>
+                                    </Label>
+                                    <VBox prefHeight="200.0" prefWidth="100.0" spacing="5.0" VBox.vgrow="ALWAYS">
+                                       <children>
+                                          <Label text="Nombre*" />
+                                          <TextField fx:id="customerNameField" promptText="Nombre" />
+                                          <Label text="Primer apellido*" />
+                                          <TextField fx:id="customerFirstNameField" promptText="Primer Apellido" />
+                                          <Label text="Segundo apellido*" />
+                                          <TextField fx:id="customerSecondNameField" promptText="Segundo apellido" />
+                                          <Label text="DNI*" />
+                                          <TextField fx:id="customerDniField" promptText="DNI" />
+                                          <Label text="Correo electrónico*" />
+                                          <TextField fx:id="customerEmailField" promptText="Correo electrónico" />
+                                          <Label text="Número de teléfono*" />
+                                          <TextField fx:id="customerPhoneField" promptText="Número de teléfono" />
+                                       </children>
+                                       <VBox.margin>
+                                          <Insets />
+                                       </VBox.margin>
+                                       <padding>
+                                          <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                       </padding>
+                                    </VBox>
+                                    <Button fx:id="customerCleanBtn" mnemonicParsing="false" onAction="#handleClearCustomerFields" prefHeight="26.0" prefWidth="190.0" text="Limpiar">
+                                       <VBox.margin>
+                                          <Insets left="30.0" />
+                                       </VBox.margin>
+                                    </Button>
+                                    <Button fx:id="saveCustomerBtn" mnemonicParsing="false" onAction="#handleSaveCustomer" prefHeight="26.0" prefWidth="190.0" text="Guardar cliente">
+                                       <VBox.margin>
+                                          <Insets left="30.0" />
+                                       </VBox.margin>
+                                    </Button>
+                                 </children>
+                              </VBox>
+                           </items>
+                        </SplitPane>
+                        <Label layoutX="14.0" layoutY="14.0" text="Clientes">
+                           <font>
+                              <Font name="System Bold" size="21.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </AnchorPane>
+               </content>
+            </Tab>
+            <Tab text="Empleados">
+               <content>
+                  <AnchorPane prefHeight="400.0" prefWidth="600.0">
+                     <children>
+                        <SplitPane dividerPositions="0.4" layoutX="178.0" layoutY="68.0" prefHeight="400.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="70.0">
+                           <items>
+                              <VBox prefHeight="200.0" prefWidth="100.0" spacing="12.0">
+                                 <padding>
+                                    <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+                                 </padding>
+                                 <children>
+                                    <Label text="Lista de empleados">
+                                       <font>
+                                          <Font size="20.0" />
+                                       </font>
+                                    </Label>
+                                    <TableView fx:id="employeeTableView" prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
+                                       <columns>
+                                          <TableColumn fx:id="idColumn" prefWidth="75.0" text="ID" />
+                                          <TableColumn fx:id="employeeUserColumn" prefWidth="75.0" text="Nombre de usuario" />
+                                          <TableColumn fx:id="rolColumn" prefWidth="75.0" text="Rol" />
+                                          <TableColumn fx:id="employeeActionColumn" prefWidth="75.0" text="Acción" />
+                                       </columns>
+                                       <columnResizePolicy>
+                                          <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                                       </columnResizePolicy>
+                                    </TableView>
+                                 </children>
+                              </VBox>
+                              <VBox maxWidth="-Infinity" minWidth="-Infinity" prefWidth="300.0" spacing="12.0" SplitPane.resizableWithParent="false">
+                                 <padding>
+                                    <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+                                 </padding>
+                                 <children>
+                                    <Label text="REGISTRAR EMPLEADO">
+                                       <font>
+                                          <Font name="System Bold" size="16.0" />
+                                       </font>
+                                    </Label>
+                                    <VBox prefHeight="200.0" prefWidth="100.0" spacing="5.0" VBox.vgrow="ALWAYS">
+                                       <children>
+                                          <Label text="Nombre de usuario" />
+                                          <TextField fx:id="userEmployeeField" promptText="Nombre de usuario" />
+                                          <Label text="Contraseña" />
+                                          <TextField fx:id="passwdEmployeeField" promptText="Contraseña" />
+                                          <Label text="Nivel de privilegios" />
+                                          <ComboBox fx:id="rolComboBox" prefWidth="150.0" promptText="Rol" />
+                                       </children>
+                                    </VBox>
+                                    <Button fx:id="clearEmployeeFieldsButton" mnemonicParsing="false" onAction="#clearEmployeeFields" prefHeight="26.0" prefWidth="210.0" text="Limpiar">
+                                       <VBox.margin>
+                                          <Insets left="30.0" />
+                                       </VBox.margin>
+                                    </Button>
+                                    <Button fx:id="saveEmployeeButton" mnemonicParsing="false" onAction="#saveEmployee" prefHeight="26.0" prefWidth="210.0" text="Guardar Empleado">
+                                       <VBox.margin>
+                                          <Insets left="30.0" />
+                                       </VBox.margin>
+                                    </Button>
+                                 </children>
+                              </VBox>
+                           </items>
+                        </SplitPane>
+                        <Label layoutX="7.0" layoutY="14.0" text="Gestión de empleados">
+                           <font>
+                              <Font name="System Bold" size="20.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </AnchorPane>
+               </content>
+            </Tab>
+         </tabs>
+      </TabPane>
    </children>
 </AnchorPane>

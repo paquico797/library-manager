@@ -22,6 +22,7 @@
         <mapping class="com.franRR.librarymanager.model.Category"/>
         <mapping class="com.franRR.librarymanager.model.Loan"/>
         <mapping class="com.franRR.librarymanager.model.User"/>
+        <mapping class="com.franRR.librarymanager.model.Employee"/>
 
     </session-factory>
 </hibernate-configuration>
