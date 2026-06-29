@@ -1,7 +1,120 @@
-/*
- * Empty Stylesheet file.
- */
+/* ==========================================================================
+   ESTILO GENERAL DE LA VENTANA (Limpio y Espaciado)
+   ========================================================================== */
+.root, AnchorPane, VBox, HBox {
+    -fx-background-color: #ffffff;
+    -fx-font-family: "Segoe UI", Arial, sans-serif;
+}
 
-.mainFxmlClass {
+/* Forzar padding general si el contenedor de Scene Builder no lo tiene */
+VBox {
+    -fx-padding: 20;
+}
 
+.label {
+    -fx-text-fill: #334155;
+    -fx-font-weight: bold;
+    -fx-font-size: 13px;
+}
+
+/* Separador horizontal sutil */
+.separator .line {
+    -fx-border-color: #e2e8f0 transparent transparent transparent;
+    -fx-border-width: 1 0 0 0;
+}
+
+/* ==========================================================================
+   CAMPOS DE TEXTO (Inputs)
+   ========================================================================== */
+.text-field {
+    -fx-background-color: #ffffff;
+    -fx-text-fill: #1e293b;
+    -fx-border-color: #cbd5e1;
+    -fx-border-radius: 6;
+    -fx-background-radius: 6;
+    -fx-padding: 8 10;
+}
+.text-field:focused {
+    -fx-border-color: #2563eb; /* Azul corporativo al escribir */
+}
+
+/* ==========================================================================
+   SOLUCIÓN COMPLETA PARA EL COMBOBOX
+   ========================================================================== */
+.combo-box {
+    -fx-background-color: #ffffff;
+    -fx-border-color: #cbd5e1;
+    -fx-border-radius: 6;
+    -fx-background-radius: 6;
+    -fx-padding: 4 6;
+}
+.combo-box:focused {
+    -fx-border-color: #2563eb;
+}
+
+/* Texto dentro del ComboBox cerrado */
+.combo-box .list-cell {
+    -fx-text-fill: #1e293b;
+    -fx-background-color: transparent;
+    -fx-padding: 4 6;
+}
+
+/* Botón de la flecha derecha */
+.combo-box .arrow-button {
+    -fx-background-color: transparent;
+    -fx-padding: 0 8 0 8;
+}
+
+/* Diseño de la flecha interna (Limpia y gris) */
+.combo-box .arrow {
+    -fx-shape: "M0 0 L 4 4 L 8 0 Z";
+    -fx-background-color: #64748b;
+}
+
+/* Desplegable abierto (Lista de opciones) */
+.combo-box-popup .list-view {
+    -fx-background-color: #ffffff;
+    -fx-border-color: #cbd5e1;
+    -fx-border-radius: 6;
+    -fx-background-radius: 6;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 8, 0, 0, 4);
+}
+.combo-box-popup .list-cell {
+    -fx-text-fill: #1e293b;
+    -fx-background-color: #ffffff;
+    -fx-padding: 8 12;
+}
+.combo-box-popup .list-cell:hover {
+    -fx-background-color: #f1f5f9;
+    -fx-text-fill: #2563eb;
+}
+.combo-box-popup .list-cell:selected {
+    -fx-background-color: #2563eb;
+    -fx-text-fill: #ffffff;
+}
+
+/* ==========================================================================
+   BOTONES DE ACCIÓN (Todos Azules Homogéneos)
+   ========================================================================== */
+.button {
+    -fx-background-color: #2563eb; /* Azul corporativo uniforme */
+    -fx-text-fill: #ffffff;
+    -fx-font-weight: bold;
+    -fx-background-radius: 6;
+    -fx-padding: 8 16;
+    -fx-cursor: hand;
+}
+
+.button:hover {
+    -fx-background-color: #1d4ed8; /* Azul más oscuro al pasar el cursor */
+}
+
+/* Asegura que tanto el botón de limpiar como el de guardar hereden el tono azul */
+#clearEmployeeFieldsButton, #saveEmployeeButton {
+    -fx-background-color: #2563eb;
+    -fx-text-fill: #ffffff;
+}
+
+#clearEmployeeFieldsButton:hover, #saveEmployeeButton:hover {
+    -fx-background-color: #1d4ed8;
 }

@@ -1,7 +1,36 @@
-/*
- * Empty Stylesheet file.
- */
-
-.mainFxmlClass {
-
+.root, AnchorPane, VBox, HBox {
+    -fx-background-color: #f8fafc;
+}
+.label {
+    -fx-text-fill: #1e293b;
+}
+.text-field, .password-field {
+    -fx-background-color: #ffffff;
+    -fx-text-fill: #1e293b;
+    -fx-border-color: #cbd5e1;
+    -fx-border-radius: 6;
+    -fx-background-radius: 6;
+    -fx-padding: 10;
+}
+.text-field:focused, .password-field:focused {
+    -fx-border-color: #3b82f6;
+}
+.button {
+    -fx-background-color: #3b82f6;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-background-radius: 6;
+    -fx-padding: 10 24;
+    -fx-cursor: hand;
+}
+.button:hover {
+    -fx-background-color: #2563eb;
+}
+#registerButton {
+    -fx-fill: #3b82f6;
+    -fx-cursor: hand;
+}
+#registerButton:hover {
+    -fx-fill: #1d4ed8;
+    -fx-underline: true;
 }

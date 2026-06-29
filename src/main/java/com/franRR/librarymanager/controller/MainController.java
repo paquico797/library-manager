@@ -5,8 +5,10 @@ import com.franRR.librarymanager.services.BookService;
 import com.franRR.librarymanager.services.CategoryService;
 import com.franRR.librarymanager.services.impl.BookServiceImpl;
 import com.franRR.librarymanager.services.impl.CategoryServiceImpl;
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.concurrent.Task;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -16,6 +18,8 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.util.List;
 import javafx.event.ActionEvent;
+import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 
 public class MainController {
@@ -597,6 +601,10 @@ public class MainController {
 
     @FXML
     private void handleSaveBook() {
+        String originalText = saveBookButton.getText();
+        saveBookButton.setDisable(true);
+        saveBookButton.setText("Guardando...");
+
         String isbn = isbnField.getText().trim();
         String title = titleField.getText().trim();
         String author = authorField.getText().trim();
@@ -608,30 +616,67 @@ public class MainController {
             // Mostrar mensaje de error de campos vacíos o no válidos
             showAlert(Alert.AlertType.WARNING, "Campos incorrectos", "Faltan datos o son inválidos",
                     "Por favor, asegúrate de rellenar todos los campos. Verifica que la fecha escrita a mano tenga el formato dd/MM/yyyy.");
+            saveBookButton.setDisable(false);
+            saveBookButton.setText(originalText);
             return;
         }
 
-        try{
-            int stock = Integer.parseInt(stockField.getText().trim());
-            if(stock < 0){
+        int stock;
+        try {
+            stock = Integer.parseInt(stockField.getText());
+            if (stock < 0) {
                 showAlert(Alert.AlertType.ERROR, "Stock inválido", "Cantidad negativa", "El stock disponible no puede ser menor que 0.");
+                saveBookButton.setDisable(false);
+                saveBookButton.setText(originalText);
                 return;
             }
+        } catch (NumberFormatException e) {
+            showAlert(Alert.AlertType.ERROR, "Error de formato", "Stock incorrecto", "El campo de cantidad debe ser un número entero válido.");
+            saveBookButton.setDisable(false);
+            saveBookButton.setText(originalText);
+            return;
+        }
 
-            bookService.save(new Book(isbn, title, author, selectedDate, stock, selectedCategory));
+        Task<Boolean> task = new Task<>() {
 
-            isbnField.clear();
-            titleField.clear();
-            authorField.clear();
-            categoryComboBox.setValue(null);
-            stockField.clear();
-            showAlert(Alert.AlertType.INFORMATION, "Éxito", "Libro registrado", "El libro '" + title + "' ha sido guardado con éxito.");
-            refreshBooks();
-        }catch (NumberFormatException e){
-            showAlert(Alert.AlertType.ERROR, "Error de formato", "Stock incorrecto", "El campo de cantidad debe ser un número entero válido.");        }
+            @Override
+            protected Boolean call() throws Exception {
+                Thread.sleep(500);
 
+                    bookService.save(new Book(isbn, title, author, selectedDate, stock, selectedCategory));
+                    return true;
+            }
+        };
 
+        task.setOnSucceeded(e -> {
+            Platform.runLater(() -> {
+                saveBookButton.setDisable(false);
+                saveBookButton.setText(originalText);
 
+                isbnField.clear();
+                titleField.clear();
+                authorField.clear();
+                stockField.clear();
+                categoryComboBox.setValue(null);
+                yearField.setValue(null);
+
+                Stage currentStage = (Stage) saveCustomerBtn.getScene().getWindow();
+                ToastNotification.show(currentStage, "¡Éxito, el libro ha sido registrado!", ToastNotification.ToastType.SUCCESS);
+                refreshBooks();
+            });
+        });
+
+        task.setOnFailed(e -> {
+            Platform.runLater(() -> {
+                saveBookButton.setDisable(false);
+                saveBookButton.setText(originalText);
+
+                Throwable error = task.getException();
+                showAlert(Alert.AlertType.ERROR, "Error al guardar", "No se pudo registrar el libro", error.getMessage());
+            });
+        });
+
+        new Thread(task).start();
 
     }
 
@@ -671,6 +716,10 @@ public class MainController {
 
     @FXML
     private void handleSaveCustomer() {
+        String originalText = saveCustomerBtn.getText();
+        saveCustomerBtn.setDisable(true);
+        saveCustomerBtn.setText("Guardando...");
+
         String name = customerNameField.getText().trim();
         String firstAp = customerFirstNameField.getText().trim();
         String secondAp = customerSecondNameField.getText().trim();
@@ -689,21 +738,43 @@ public class MainController {
 
         User user = new User(name, apellidosCompletos, dni, email, phone, java.time.LocalDate.now());
 
-        try {
+        Task<Boolean> task = new Task<> () {
+            @Override
+            protected Boolean call() throws Exception {
+                Thread.sleep(500);
+                try {
+                    userService.save(user);
+                    return true;
+                } catch (IllegalStateException e) {
+                   throw  e;
+                }
+            }
+        };
 
-            userService.save(user);
+        task.setOnSucceeded( e -> {
+            Platform.runLater(() -> {
+                saveCustomerBtn.setDisable(false);
+                saveCustomerBtn.setText(originalText);
 
-            showAlert(Alert.AlertType.INFORMATION, "Éxito", "Cliente guardado", "El cliente se ha registrado correctamente.");
-            handleClearCustomerFields();
-            refreshCustomers();
+                Stage currentStage = (Stage) saveCustomerBtn.getScene().getWindow();
+                ToastNotification.show(currentStage, "¡Éxito, el cliente ha sido registrado!", ToastNotification.ToastType.SUCCESS);
+                handleClearCustomerFields();
+                refreshCustomers();
+            });
+        });
 
-        } catch (IllegalStateException e) {
+        task.setOnFailed(e -> {
+            Platform.runLater(() -> {
+                saveCustomerBtn.setDisable(false);
+                saveCustomerBtn.setText(originalText);
 
-            showAlert(Alert.AlertType.ERROR, "DNI Duplicado", "Error al guardar el cliente", e.getMessage());
-        }
+                Throwable error = task.getException();
+                showAlert(Alert.AlertType.ERROR, "DNI Duplicado", "Error al guardar el cliente", error.getMessage());
+            });
+        });
 
-        handleClearCustomerFields();
-        refreshCustomers();
+        new Thread(task).start();
+
     }
 
     @FXML
@@ -724,37 +795,67 @@ public class MainController {
 
     @FXML
     private void registerNewLoan(ActionEvent event) {
-        // 1. Capturamos el libro y el cliente seleccionados directamente de las filas de las tablas
+        String originalText = registerLoanButton.getText();
+        registerLoanButton.setDisable(true);
+        registerLoanButton.setText("Guardando...");
+
         Book selectedBook = loanBookTableView.getSelectionModel().getSelectedItem();
         User selectedUser = loanCustomerTable.getSelectionModel().getSelectedItem();
 
-        // 2. Validación: Comprobar que el usuario ha hecho clic y seleccionado ambos elementos
+
         if (selectedBook == null || selectedUser == null) {
             showAlert(Alert.AlertType.WARNING, "Selección incompleta", "Faltan datos por seleccionar",
                     "Por favor, selecciona un libro de la tabla superior y un cliente de la tabla inferior para realizar el préstamo.");
+            registerLoanButton.setDisable(false);
+            registerLoanButton.setText(originalText);
             return;
         }
 
-        try {
-            // 3. Procesamos el registro a través del servicio (descuenta stock y persiste el préstamo)
-            loanService.registerLoan(selectedBook, selectedUser);
+        Task<Boolean> task = new Task<>() {
+            @Override
+            protected Boolean call() throws Exception {
+                Thread.sleep(500);
+                try {
 
-            // 4. Mostramos el mensaje de éxito
-            showAlert(Alert.AlertType.INFORMATION, "Éxito", "Préstamo completado",
-                    "El libro '" + selectedBook.getTitle() + "' ha sido asignado correctamente a " + selectedUser.getFirstName() + ".");
+                    loanService.registerLoan(selectedBook, selectedUser);
+                    return true;
 
-            // 5. Limpiamos visualmente la selección de las tablas para dejar la interfaz lista
-            loanBookTableView.getSelectionModel().clearSelection();
-            loanCustomerTable.getSelectionModel().clearSelection();
 
-            // 6. Refrescamos todas las tablas de la aplicación para actualizar el stock e historiales
-            refreshLoans();
-            refreshBooks();
-            refreshCustomers();
+                } catch (Exception e) {
+                    throw  e;
 
-        } catch (Exception e) {
-            showAlert(Alert.AlertType.ERROR, "Error", "No se pudo registrar el préstamo", e.getMessage());
-        }
+                }
+            }
+
+        };
+
+        task.setOnSucceeded( e -> {
+            Platform.runLater(() -> {
+                registerLoanButton.setDisable(false);
+                registerLoanButton.setText(originalText);
+                Stage currentStage = (Stage) saveCustomerBtn.getScene().getWindow();
+                ToastNotification.show(currentStage, "¡Éxito, el préstamo ha sido registrado!", ToastNotification.ToastType.SUCCESS);
+                loanBookTableView.getSelectionModel().clearSelection();
+                loanCustomerTable.getSelectionModel().clearSelection();
+
+                refreshLoans();
+                refreshBooks();
+                refreshCustomers();
+            });
+        });
+
+        task.setOnFailed( e -> {
+            Platform.runLater(() -> {
+                registerLoanButton.setDisable(false);
+                registerLoanButton.setText(originalText);
+                Throwable error = task.getException();
+                showAlert(Alert.AlertType.ERROR, "Error", "No se pudo registrar el préstamo", error.getMessage());
+
+            });
+
+        });
+
+        new Thread(task).start();
     }
 
     private void refreshLoans() {
@@ -787,6 +888,7 @@ public class MainController {
             stage.setTitle(title);
             stage.initModality(javafx.stage.Modality.APPLICATION_MODAL);
             stage.setScene(new javafx.scene.Scene(root));
+            stage.setResizable(false);
             stage.showAndWait();
 
             // Al cerrar la ventana modal, refrescamos la tabla principal por si hubo cambios
@@ -813,31 +915,62 @@ public class MainController {
 
     @FXML
     private void saveEmployee(ActionEvent event) {
+        String originalText = saveEmployeeButton.getText();
+        saveEmployeeButton.setDisable(true);
+        saveEmployeeButton.setText("Guardando...");
+
         String username = userEmployeeField.getText().trim();
         String password = passwdEmployeeField.getText().trim();
         String role = rolComboBox.getValue();
 
         if (username.isEmpty() || password.isEmpty() || role == null) {
             showAlert(Alert.AlertType.WARNING, "Campos incompletos", "Faltan datos", "Todos los campos son obligatorios para el registro.");
+            saveEmployeeButton.setDisable(false);
+            saveEmployeeButton.setText(originalText);
             return;
         }
 
-        try {
-            com.franRR.librarymanager.model.Employee newEmployee = new com.franRR.librarymanager.model.Employee();
-            newEmployee.setUsername(username);
-            newEmployee.setPassword(password);
-            newEmployee.setRole(role);
+        Task<Boolean> task = new Task<>() {
+            @Override
+            protected Boolean call() throws Exception {
+                Thread.sleep(500);
+                try {
+                    employeeService.save( new Employee(username, password, role));
+                    return true;
 
-            // Persistimos el nuevo usuario en Hibernate
-            employeeService.save(newEmployee);
+                } catch (Exception e) {
+                   throw e;
+                }
+            }
+        };
 
-            showAlert(Alert.AlertType.INFORMATION, "Éxito", "Registro completado", "El empleado ha sido registrado con éxito.");
-            clearEmployeeFields(event);
-            refreshEmployees();
+        task.setOnSucceeded(e -> {
+            Platform.runLater(() -> {
+                saveEmployeeButton.setDisable(false);
+                saveEmployeeButton.setText(originalText);
+                Stage currentStage = (Stage) saveCustomerBtn.getScene().getWindow();
+                ToastNotification.show(currentStage, "¡Éxito, el empleado ha sido registrado!", ToastNotification.ToastType.SUCCESS);
+                clearEmployeeFields(event);
+                refreshEmployees();
 
-        } catch (Exception e) {
-            showAlert(Alert.AlertType.ERROR, "Error", "No se pudo registrar", e.getMessage());
-        }
+            });
+        });
+
+        task.setOnFailed(e -> {
+            Platform.runLater(() -> {
+                saveEmployeeButton.setDisable(false);
+                saveEmployeeButton.setText(originalText);
+                Throwable error = task.getException();
+                showAlert(Alert.AlertType.ERROR, "Error", "No se pudo registrar", error.getMessage());
+                clearEmployeeFields(event);
+                refreshEmployees();
+
+            });
+        });
+
+        new Thread(task).start();
+
+
     }
 
 }

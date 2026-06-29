@@ -16,7 +16,7 @@
 
 <AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="398.0" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.franRR.librarymanager.controller.EmployeeEditViewController">
    <stylesheets>
-      <URL value="@/css/book-edit-view.css" />
+      <URL value="@/css/employee-edit-view.css" />
    </stylesheets>
    <children>
       <VBox alignment="CENTER" layoutX="161.0" layoutY="58.0" prefHeight="400.0" prefWidth="600.0" spacing="15.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
@@ -41,20 +41,21 @@
                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                </rowConstraints>
                <children>
                   <Label text="Nombre de usuario" />
-                  <Label text="Contraseña" GridPane.rowIndex="1">
+                  <Label text="Contraseña" GridPane.rowIndex="2">
                      <GridPane.margin>
                         <Insets right="42.0" />
                      </GridPane.margin></Label>
-                  <Label text="Rol" GridPane.rowIndex="3">
+                  <Label text="Rol" GridPane.rowIndex="5">
                      <GridPane.margin>
                         <Insets right="82.0" />
                      </GridPane.margin></Label>
                   <TextField fx:id="userField" maxWidth="-Infinity" prefWidth="180.0" GridPane.columnIndex="1" />
-                  <TextField fx:id="passwdField" maxWidth="180.0" prefWidth="180.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                  <ComboBox fx:id="rolComboBox" maxWidth="180.0" prefWidth="180.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                  <TextField fx:id="passwdField" maxWidth="180.0" prefWidth="180.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                  <ComboBox fx:id="rolComboBox" maxWidth="180.0" prefWidth="180.0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
                </children>
                <padding>
                   <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
@@ -62,9 +63,15 @@
             </GridPane>
             <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="12.0">
                <children>
-                  <Button fx:id="btnAdd" mnemonicParsing="false" onAction="#addUser" text="Añadir usuario" />
-                  <Button fx:id="saveChangesBtn" mnemonicParsing="false" onAction="#saveChanges" text="Guardar cambios" />
-                  <Button fx:id="eraseButton" mnemonicParsing="false" onAction="#erase" text="Eliminar" />
+                  <Button fx:id="btnAdd" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#addUser" prefHeight="30.0" prefWidth="110.0" text="Añadir usuario">
+                     <HBox.margin>
+                        <Insets />
+                     </HBox.margin></Button>
+                  <Button fx:id="saveChangesBtn" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#saveChanges" prefHeight="30.0" prefWidth="125.0" text="Guardar cambios">
+                     <HBox.margin>
+                        <Insets />
+                     </HBox.margin></Button>
+                  <Button fx:id="eraseButton" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#erase" prefHeight="30.0" prefWidth="60.0" text="Eliminar" />
                </children>
                <padding>
                   <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />

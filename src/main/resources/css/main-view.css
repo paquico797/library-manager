@@ -1,7 +1,197 @@
-/*
- * Empty Stylesheet file.
- */
+/* ==========================================================================
+   ESTILO GENERAL Y CONTENEDORES
+   ========================================================================== */
+.root, .mainFxmlClass, AnchorPane, VBox, HBox {
+    -fx-background-color: #f8fafc; /* Blanco ártico limpio */
+    -fx-font-family: "Segoe UI", Arial, sans-serif;
+}
 
-.mainFxmlClass {
+.label, Label, Text, .text {
+    -fx-text-fill: #1e293b; /* Texto gris oscuro de alta legibilidad */
+    -fx-fill: #1e293b;
+}
 
+/* ==========================================================================
+   SOLUCIÓN: DIVISOR DEL SPLITPANE MODERNO Y ULTRAFINO
+   ========================================================================== */
+.split-pane {
+    -fx-background-color: transparent;
+    -fx-padding: 0;
+}
+.split-pane .split-pane-divider {
+    -fx-background-color: #e2e8f0; /* Línea divisoria muy fina y discreta */
+    -fx-padding: 0 1 0 1;          /* Grosor mínimo */
+}
+.split-pane .split-pane-divider:hover {
+    -fx-background-color: #cbd5e1; /* Reacción suave al pasar el cursor */
+}
+
+/* ==========================================================================
+   SOLUCIÓN PESTAÑAS: SIN LÍNEAS NI BORDES INTERNOS DE NINGÚN TIPO
+   ========================================================================== */
+.tab-pane {
+    -fx-background-color: #f8fafc;
+}
+.tab-pane .tab-header-background {
+    -fx-background-color: #f1f5f9;
+    -fx-border-color: transparent transparent #e2e8f0 transparent;
+}
+
+/* Base de todas las pestañas */
+.tab-pane .tab {
+    -fx-background-color: transparent;
+    -fx-min-width: 140px;
+    -fx-max-width: 140px;
+    -fx-pref-width: 140px;
+    -fx-padding: 10 0;
+    -fx-alignment: CENTER;
+    -fx-background-radius: 6 6 0 0;
+    -fx-background-insets: 0;
+    -fx-border-color: transparent; /* Mata cualquier borde exterior residual */
+}
+.tab-pane .tab:hover {
+    -fx-background-color: #e2e8f0; 
+}
+.tab-pane .tab .tab-label {
+    -fx-text-fill: #64748b;
+    -fx-font-weight: bold;
+    -fx-alignment: CENTER;
+}
+
+/* PESTAÑA SELECCIONADA: Tinte plano e impecable sin rayas */
+.tab-pane .tab:selected, 
+.tab-pane .tab:selected:focused {
+    -fx-background-color: #e0f2fe; /* Color de fondo completo */
+    -fx-border-color: transparent !important;
+    -fx-background-insets: 0 !important;
+    -fx-box-border: transparent !important; /* Desactiva el borde interno de JavaFX */
+}
+
+/* Elimina el recuadro de foco de accesibilidad que suele pintar la línea azul interna */
+.tab-pane .tab:focused {
+    -fx-background-insets: 0 !important;
+}
+.tab-pane .tab:focused .tab-label {
+    -fx-border-color: transparent !important;
+}
+
+.tab-pane .tab:selected .tab-label {
+    -fx-text-fill: #0369a1; /* Texto activo */
+}
+
+/* ==========================================================================
+   SEPARADORES DISIMULADOS
+   ========================================================================== */
+.separator {
+    -fx-background-color: transparent;
+    -fx-padding: 4 0;
+}
+.separator .line {
+    -fx-border-color: #e2e8f0 transparent transparent transparent;
+    -fx-border-width: 1 0 0 0;
+    -fx-background-color: transparent;
+}
+
+/* ==========================================================================
+   TABLAS (Legibles, Modernas y Limpias)
+   ========================================================================== */
+.table-view {
+    -fx-background-color: #ffffff;
+    -fx-border-color: #e2e8f0;
+    -fx-background-radius: 6;
+    -fx-border-radius: 6;
+}
+.table-view .column-header-background {
+    -fx-background-color: #f1f5f9;
+}
+.table-view .column-header {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent #e2e8f0 transparent transparent;
+    -fx-size: 38;
+}
+.table-view .column-header .label {
+    -fx-text-fill: #475569;
+    -fx-font-weight: bold;
+}
+.table-row-cell {
+    -fx-background-color: #ffffff;
+    -fx-border-color: transparent transparent #f1f5f9 transparent;
+}
+.table-row-cell:odd {
+    -fx-background-color: #f8fafc;
+}
+.table-row-cell:hover {
+    -fx-background-color: #eff6ff;
+}
+.table-row-cell:selected {
+    -fx-background-color: #2563eb;
+}
+
+.table-cell, .table-row-cell .text {
+    -fx-text-fill: #1e293b;
+}
+.table-row-cell:selected .table-cell, .table-row-cell:selected .text {
+    -fx-text-fill: #ffffff !important;
+}
+
+/* ==========================================================================
+   LISTVIEW (Panel de Categorías)
+   ========================================================================== */
+.list-view {
+    -fx-background-color: #ffffff;
+    -fx-border-color: #e2e8f0;
+    -fx-background-radius: 6;
+    -fx-border-radius: 6;
+}
+.list-view .list-cell {
+    -fx-background-color: #ffffff;
+    -fx-text-fill: #1e293b;
+    -fx-padding: 8 12;
+    -fx-border-color: transparent transparent #f1f5f9 transparent;
+}
+.list-view .list-cell:hover {
+    -fx-background-color: #f1f5f9;
+}
+.list-view .list-cell:selected {
+    -fx-background-color: #2563eb;
+    -fx-text-fill: #ffffff;
+}
+
+/* ==========================================================================
+   BOTONES LATERALES DE ACCIÓN
+   ========================================================================== */
+.button {
+    -fx-background-color: #2563eb;
+    -fx-text-fill: #ffffff;
+    -fx-font-weight: bold;
+    -fx-background-radius: 6;
+    -fx-padding: 6 12;
+    -fx-cursor: hand;
+    -fx-min-width: -1;
+}
+.button:hover {
+    -fx-background-color: #1d4ed8;
+}
+
+#clearEmployeeFieldsButton, [text="Limpiar"] {
+    -fx-background-color: #64748b;
+}
+#clearEmployeeFieldsButton:hover, [text="Limpiar"]:hover {
+    -fx-background-color: #475569;
+}
+
+/* ==========================================================================
+   CAMPOS DE TEXTO E INPUTS (Buscadores)
+   ========================================================================== */
+.text-field {
+    -fx-background-color: #ffffff;
+    -fx-text-fill: #1e293b;
+    -fx-prompt-text-fill: #94a3b8;
+    -fx-border-color: #cbd5e1;
+    -fx-border-radius: 6;
+    -fx-background-radius: 6;
+    -fx-padding: 6 10;
+}
+.text-field:focused {
+    -fx-border-color: #2563eb;
 }

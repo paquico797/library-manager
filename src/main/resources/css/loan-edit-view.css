@@ -1,7 +1,70 @@
-/*
- * Empty Stylesheet file.
- */
+/* ==========================================================================
+   ESTILO GENERAL DE LA VENTANA (Limpio y Espaciado)
+   ========================================================================== */
+.root, AnchorPane, VBox, HBox {
+    -fx-background-color: #ffffff;
+    -fx-font-family: "Segoe UI", Arial, sans-serif;
+}
 
-.mainFxmlClass {
+VBox {
+    -fx-padding: 24;       /* Separación respecto a los bordes de la ventana */
+    -fx-spacing: 12;       /* Distribución vertical limpia anti-solapamiento */
+}
 
+.label {
+    -fx-text-fill: #334155;
+    -fx-font-weight: bold;
+    -fx-font-size: 13px;
+}
+
+.separator .line {
+    -fx-border-color: #e2e8f0 transparent transparent transparent;
+    -fx-border-width: 1 0 0 0;
+}
+
+/* ==========================================================================
+   CAMPOS DE TEXTO E INPUTS
+   ========================================================================== */
+.text-field {
+    -fx-background-color: #ffffff;
+    -fx-text-fill: #1e293b;
+    -fx-border-color: #cbd5e1;
+    -fx-background-radius: 6;
+    -fx-border-radius: 6;
+    -fx-padding: 8 10;
+}
+.text-field:focused {
+    -fx-border-color: #2563eb;
+}
+
+/* Tratamiento visual de campos bloqueados o no editables */
+.text-field:disabled, .text-field[editable="false"] {
+    -fx-background-color: #f1f5f9;
+    -fx-text-fill: #64748b;
+    -fx-border-color: #e2e8f0;
+    -fx-opacity: 0.8;
+}
+
+/* ==========================================================================
+   BOTONES (Azul Corporativo Uniforme)
+   ========================================================================== */
+.button {
+    -fx-background-color: #2563eb;
+    -fx-text-fill: #ffffff;
+    -fx-font-weight: bold;
+    -fx-background-radius: 6;
+    -fx-padding: 8 20;
+    -fx-cursor: hand;
+}
+.button:hover {
+    -fx-background-color: #1d4ed8;
+}
+
+/* Mantenemos los ID de guardar/eliminar con el mismo formato pero tono azul unificado */
+#saveChangesBtn, #eraseBtn, #eraseButton {
+    -fx-background-color: #2563eb;
+    -fx-text-fill: #ffffff;
+}
+#saveChangesBtn:hover, #eraseBtn:hover, #eraseButton:hover {
+    -fx-background-color: #1d4ed8;
 }

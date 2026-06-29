@@ -1,7 +1,66 @@
-/*
- * Empty Stylesheet file.
- */
+/* ==========================================================================
+   ESTILO GENERAL DE LA VENTANA (Limpio y Espaciado)
+   ========================================================================== */
+.root, AnchorPane, VBox, HBox {
+    -fx-background-color: #ffffff;
+    -fx-font-family: "Segoe UI", Arial, sans-serif;
+}
 
-.mainFxmlClass {
+/* Espaciado del VBox exterior */
+VBox {
+    -fx-padding: 24;
+    -fx-spacing: 15;
+}
 
+/* --- SOLUCIÓN PARA QUE LAS FILAS NO SE SOLAPEN --- */
+GridPane {
+    -fx-vgap: 12;   /* Separa verticalmente cada fila del formulario automáticamente */
+    -fx-hgap: 10;   /* Separa la etiqueta del campo de texto de forma limpia */
+}
+
+.label {
+    -fx-text-fill: #334155;
+    -fx-font-weight: bold;
+    -fx-font-size: 13px;
+}
+
+/* ==========================================================================
+   CAMPOS DE TEXTO
+   ========================================================================== */
+.text-field {
+    -fx-background-color: #ffffff;
+    -fx-text-fill: #1e293b;
+    -fx-border-color: #cbd5e1;
+    -fx-border-radius: 6;
+    -fx-background-radius: 6;
+    -fx-padding: 6 10;
+}
+.text-field:focused {
+    -fx-border-color: #2563eb;
+}
+
+/* ==========================================================================
+   BOTONES (Azul Corporativo Uniforme)
+   ========================================================================== */
+.button {
+    -fx-background-color: #2563eb;
+    -fx-text-fill: #ffffff;
+    -fx-font-weight: bold;
+    -fx-background-radius: 6;
+    -fx-padding: 8 20;
+    -fx-cursor: hand;
+}
+
+.button:hover {
+    -fx-background-color: #1d4ed8;
+}
+
+/* Forzar que todos los ID de botones secundarios/eliminar mantengan el color azul */
+#saveChangesBtn, #eraseBtn, #eraseButton {
+    -fx-background-color: #2563eb;
+    -fx-text-fill: #ffffff;
+}
+
+#saveChangesBtn:hover, #eraseBtn:hover, #eraseButton:hover {
+    -fx-background-color: #1d4ed8;
 }

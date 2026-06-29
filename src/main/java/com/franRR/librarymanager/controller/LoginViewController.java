@@ -10,6 +10,7 @@ import java.util.ResourceBundle;
 import com.franRR.librarymanager.model.Employee;
 import com.franRR.librarymanager.services.EmployeeService;
 import com.franRR.librarymanager.services.impl.EmployeeServiceImpl;
+import javafx.animation.FadeTransition;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -22,6 +23,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 
 /**
  * FXML Controller class
@@ -91,21 +93,33 @@ public class LoginViewController implements Initializable {
             // Validamos que exista y que la contraseña coincida
             if (employee != null && employee.getPassword().equals(password)) {
 
-                // 1. Cargamos el FXML de la ventana principal (MainView)
+                // 1. Cargamos el FXML de la ventana principal
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/main-view.fxml"));
                 Parent root = loader.load();
 
-                // 2. Creamos el nuevo escenario para el menú principal
+                // 2. Creamos y mostramos el nuevo escenario
                 Stage mainStage = new Stage();
                 mainStage.setTitle("Library Manager - Menú Principal");
                 mainStage.setScene(new Scene(root));
+                mainStage.setMaximized(true);
+                root.setOpacity(0.0);
+
                 mainStage.show();
 
-                // 3. Cerramos la ventana actual de Login de forma limpia
-                Stage currentStage = (Stage) loginBtn.getScene().getWindow();
+
+                FadeTransition fadeIn = new FadeTransition(Duration.millis(500), root);
+                fadeIn.setFromValue(0.0); // De invisible...
+                fadeIn.setToValue(1.0);   // ...a totalmente visible
+                fadeIn.play();            // ¡Arranca la animación!
+
+
+                // 3. CORRECCIÓN SEGURA: Cerramos la ventana usando el 'event' en lugar del botón directamente
+                javafx.scene.Node source = (javafx.scene.Node) event.getSource();
+                Stage currentStage = (Stage) source.getScene().getWindow();
                 currentStage.close();
 
             } else {
+// ...
                 showAlert(Alert.AlertType.ERROR, "Acceso Denegado", "Credenciales incorrectas", "El usuario o la contraseña no son válidos.");
             }
 

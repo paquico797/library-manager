@@ -14,8 +14,9 @@ public class MainApp extends Application {
     @Override
     public void start(Stage stage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(MainApp.class.getResource("/fxml/login-view.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), 1024, 768);
+        Scene scene = new Scene(fxmlLoader.load(), 650, 480);
         stage.setTitle("LibrarianPro");
+        stage.setResizable(false);
         stage.setScene(scene);
         stage.show();
     }
